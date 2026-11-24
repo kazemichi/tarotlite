@@ -1,2 +1,0 @@
-# tarotlite
-No Signal
