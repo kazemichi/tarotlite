@@ -5,8 +5,8 @@ const cardImg = document.querySelector('.card-img');
 const revealCanvas = document.getElementById('revealCanvas');
 const sparkCanvas = document.getElementById('sparkOverlay');
 
-// 加载外部 Worker 文件（如放在子目录请修改路径，如 './js/reveal.worker.js'）
-const worker = new Worker('scripts/reveal.worker.js');
+// 加载外部 Worker 文件
+const worker = new Worker(`${window.location.origin}/scripts/reveal.worker.js`);
 
 // 监听 Worker 加载或运行错误，方便排查路径问题
 worker.onerror = function (err) {
@@ -48,7 +48,7 @@ async function drawAndRevealCard(updateDomCallback) {
         prevSnapshot = await createImageBitmap(cardImg);
         prevReversed = cardImg.style.transform.includes('-1');
 
-        // 1. 已有旧牌时：先让右侧旧文字平滑淡出（耗时 280ms，正好并行等待新图片加载）
+        // 已有旧牌时：先让右侧旧文字平滑淡出（耗时 280ms，正好并行等待新图片加载）
         cardRight.classList.add('is-fading');
     } else {
         cardImg.style.opacity = '0';
@@ -64,7 +64,7 @@ async function drawAndRevealCard(updateDomCallback) {
         await new Promise((r) => setTimeout(r, 180));
     }
 
-    // 2. 更新新牌文字和图片
+    // 更新新牌文字和图片
     await updateDomCallback();
 
     const newSrc = cardImg.src;
@@ -76,7 +76,7 @@ async function drawAndRevealCard(updateDomCallback) {
         cardImg.style.transform = oldTransform;
     }
 
-    // 3. 后台加载并解码新图片
+    // 后台加载并解码新图片
     const tempImg = new Image();
     tempImg.crossOrigin = cardImg.crossOrigin || null;
     tempImg.src = newSrc;
@@ -96,7 +96,7 @@ async function drawAndRevealCard(updateDomCallback) {
     cardImg.src = newSrc;
     cardImg.style.transform = newTransform;
 
-    // 4. 启动左侧粒子扫光的同时，移除 is-fading 让右侧新文字柔和淡入浮现！
+    // 启动左侧粒子扫光的同时，移除 is-fading 让右侧新文字柔和淡入浮现！
     requestAnimationFrame(() => {
         cardRight.classList.remove('is-fading');
     });
