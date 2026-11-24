@@ -6,7 +6,7 @@ const revealCanvas = document.getElementById('revealCanvas');
 const sparkCanvas = document.getElementById('sparkOverlay');
 
 // 加载外部 Worker 文件
-const worker = new Worker(`${window.location.origin}/scripts/reveal.worker.js`);
+const worker = new Worker(`${window.location.href}scripts/reveal.worker.js`);
 
 // 监听 Worker 加载或运行错误，方便排查路径问题
 worker.onerror = function (err) {

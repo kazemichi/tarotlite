@@ -3,7 +3,7 @@
     if (!showCanvas || !showCanvas.transferControlToOffscreen) return;
 
     const offscreen = showCanvas.transferControlToOffscreen();
-    const starWorker = new Worker(`${window.location.origin}/scripts/startrail.worker.js`);
+    const starWorker = new Worker(`${window.location.href}scripts/startrail.worker.js`);
 
     starWorker.onerror = (err) => {
         console.error('startrail.worker.js 运行异常:', err.message);
