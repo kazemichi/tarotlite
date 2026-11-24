@@ -12,13 +12,6 @@
     font-display: swap;
 }
 
-@font-face {
-    font-family: 'LxgwWenKai';
-    src: url('../fonts/LxgwWenKai/LXGWWenKai-Regular.woff2') format('woff2');
-    unicode-range: U+4E00-9FFF, U+3000-303F, U+FF00-FFEF;
-    font-display: swap;
-}
-
 * {
     padding: 0;
     margin: 0;
@@ -95,7 +88,7 @@ body::-webkit-scrollbar {
     flex-wrap: wrap;
     color: #e8e8ff;
     user-select: none;
-    font-family: 'Elstob', 'LxgwWenKai', sans-serif;
+    font-family: 'Elstob', 'LXGW WenKai', system-ui, sans-serif;
 
     perspective: 1000px;
 }
